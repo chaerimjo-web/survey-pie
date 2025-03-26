@@ -24,7 +24,7 @@
       "react-app/jest"
     ],
     "plugins": [
-      "eslint-plugin-simple-import-sort"
+      "simple-import-sort"
     ],
     "rules": {
       "simple-import-sort/imports": "error",
