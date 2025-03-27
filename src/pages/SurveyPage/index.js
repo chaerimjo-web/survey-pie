@@ -14,15 +14,27 @@ function SurveyPage() {
       desc: "설명1 입니다.",
       type: "text",
       required: false,
-      options: {},
+      options: {
+        placeholder: "placeholder입니다."
+      },
     },
     {
       title: "질문2 입니다",
       desc: "설명2 입니다.",
-      type: "text",
+      type: "textarea",
       required: false,
-      options: {},
+      options: {
+        placeholder: "placeholder입니다.",
+      },
     },
+    {
+      title: "질문3 입니다",
+      desc: "설명3 입니다.",
+      type: "select",
+      required: false,
+      options: {
+      },
+    }
   ];
 
   const step = parseInt(params.step); //숫자형태의 함수로 변경
@@ -42,6 +54,7 @@ function SurveyPage() {
             return newAnswers;
           });
         }}
+        options={questions.options}
       />
     </div>
   );
