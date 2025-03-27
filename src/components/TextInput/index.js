@@ -1,7 +1,12 @@
-function TextInput(){
+function TextInput({answer, setAnswer}){
 	return(
 		<div>
-			<input type="text" />
+			<input type="text" 
+			value={answer || ""}
+			onChange={(e)=>{
+				setAnswer(e.target.value);
+			}}
+			/>
 		</div>
 	)
 }

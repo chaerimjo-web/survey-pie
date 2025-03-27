@@ -1,6 +1,6 @@
 import TextInput from "../TextInput";
 
-function Body({type}){
+function Body({type, answer, setAnswer}){
 	let TextComponent = null;
 	if(type === 'select'){
 
@@ -11,7 +11,7 @@ function Body({type}){
 	}
 	return(
 		<>
-			<TextComponent/>
+			<TextComponent answer={answer} setAnswer={setAnswer} />
 		</>
 	)
 }

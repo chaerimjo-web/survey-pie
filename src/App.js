@@ -1,17 +1,47 @@
-import ActionButtons from "./components/ActionButtons";
-import Desc from "./components/Desc";
+import {useState} from 'react';
+
 import ProgressIndicator from "./components/ProgressIndicator";
-import TextInput from "./components/TextInput";
-import Title from "./components/Title";
+import QuestionBox from "./components/QuestionBox";
+
 
 function App() {
+  const questions = [
+    {
+      title: '질문1 입니다', 
+      desc: '설명1 입니다.', 
+      type:'text', 
+      required: false, 
+      options: {}
+    },
+    {
+      title: '질문1 입니다', 
+      desc: '설명1 입니다.', 
+      type:'text', 
+      required: false, 
+      options: {}
+    }
+  ]
+
+  const step = 0;
+  const [answers, setAnswers] = useState([]); //데이터 타입 -> 배열 
+
   return (
     <div className="App">
       <ProgressIndicator/>
-      <Title>타이틀입니다.</Title>
-      <Desc>설명입니다.</Desc>
-      <TextInput/>
-      <ActionButtons/>
+      <QuestionBox question={questions[step]} 
+      step={step} 
+      questionsLength={questions.length} 
+      answer={answers[step]} //현재의 질문 answer
+
+      setAnswer={(newAnswer)=>{
+        setAnswers((answers)=>{
+          const newAnswers = [...answers];
+          newAnswers[step] = newAnswer;
+          return newAnswers;
+        })
+      }}
+
+      />
     </div>
   );
 }
