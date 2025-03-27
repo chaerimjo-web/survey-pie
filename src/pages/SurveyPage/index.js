@@ -33,6 +33,7 @@ function SurveyPage() {
       type: "select",
       required: false,
       options: {
+        items: ['답변1','답변2','답변3','답변4','답변5']
       },
     }
   ];

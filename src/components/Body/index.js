@@ -1,9 +1,11 @@
+import SelectInput from "../SelectInput";
 import TextAreaInput from "../TextAreaInput";
 import TextInput from "../TextInput";
 
 function Body({ type, answer, setAnswer, options }) {
   let TextComponent = null;
   if (type === "select") {
+    TextComponent = SelectInput;
   } else if (type === "text") {
     TextComponent = TextInput;
   } else if (type === "textarea") {
