@@ -1,6 +1,6 @@
 function QuestionBox(){
 	return(
-		<div>p</div>
+		<div>q</div>
 	)
 }
 export default QuestionBox;
