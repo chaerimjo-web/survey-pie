@@ -1,11 +1,14 @@
-import styled from 'styled-components';
+import { useRecoilValue } from "recoil";
+import styled from "styled-components";
+
+import testWithComma from "../../store/test/testWithComma";
 
 function CompletionPage() {
-  return <CompletionPageWrapper>CompletionPage</CompletionPageWrapper>
+  const text = useRecoilValue(testWithComma);
+
+  return <CompletionPageWrapper>{text}</CompletionPageWrapper>;
 }
 
-const CompletionPageWrapper = styled.div`
-
-`;
+const CompletionPageWrapper = styled.div``;
 
 export default CompletionPage;
