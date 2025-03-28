@@ -5,8 +5,7 @@ function CompletionPage() {
 }
 
 const CompletionPageWrapper = styled.div`
-  background: aqua;
-  padding: 4em;
+
 `;
 
 export default CompletionPage;

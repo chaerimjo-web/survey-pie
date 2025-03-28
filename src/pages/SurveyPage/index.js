@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
 
 import ProgressIndicator from "../../components/ProgressIndicator";
 import QuestionBox from "../../components/QuestionBox";
@@ -41,7 +42,7 @@ function SurveyPage() {
   const step = parseInt(params.step); //숫자형태의 함수로 변경
   const [answers, setAnswers] = useState([]); //데이터 타입 -> 배열
   return (
-    <div>
+    <SurveyPageWrapper>
       <ProgressIndicator />
       <QuestionBox
         question={questions[step]}
@@ -57,8 +58,13 @@ function SurveyPage() {
         }}
         options={questions.options}
       />
-    </div>
+    </SurveyPageWrapper>
   );
 }
+
+const SurveyPageWrapper = styled.div`
+  width: 100%;
+  min-height: 100%;
+`;
 
 export default SurveyPage;
