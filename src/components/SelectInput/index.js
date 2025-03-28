@@ -4,9 +4,7 @@ function Item({ children, onChange }) {
   return (
     <ItemWrapper>
       <label>
-        <input type="checkbox"
-          onChange={onChange}
-        />
+        <input type="checkbox" onChange={onChange} />
         <span />
         <div>{children}</div>
       </label>
@@ -14,14 +12,14 @@ function Item({ children, onChange }) {
   );
 }
 
-function SelectInput({ answer = [], setAnswer, options}) {
-  const handleChange=(isChecked, index)=>{
-    if(isChecked){
+function SelectInput({ answer = [], setAnswer, options }) {
+  const handleChange = (isChecked, index) => {
+    if (isChecked) {
       setAnswer([...answer, index]);
-    }else{
-      setAnswer(answer.filter((item)=>item !== index));
+    } else {
+      setAnswer(answer.filter((item) => item !== index));
     }
-  }
+  };
 
   return (
     <SelectInputWrapper>
@@ -29,7 +27,9 @@ function SelectInput({ answer = [], setAnswer, options}) {
         return (
           <Item
             key={index}
-            onChange={(e)=>{handleChange(e.target.checked, index)}}
+            onChange={(e) => {
+              handleChange(e.target.checked, index);
+            }}
           >
             {item}
           </Item>
