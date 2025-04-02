@@ -1,19 +1,17 @@
-import axios from "axios";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
-import testWithComma from "../../store/test/testWithComma";
+import congrats from "../../assets/congrats.png";
 
 function CompletionPage() {
-  const text = useRecoilValue(testWithComma);
-
-  axios.get('http://localhost:3001/surveys').then((res)=>{
-    console.log('res', res.data);
-  })
-
-  return <CompletionPageWrapper>{text}</CompletionPageWrapper>;
+  return (
+    <CompletionPageWrapper>
+      <img src={congrats} alt="" width="209" height="204" />
+      <MidText>설문이 완료되었습니다.</MidText>
+    </CompletionPageWrapper>
+  );
 }
 
-const CompletionPageWrapper = styled.div``;
+const CompletionPageWrapper = styled.div` `;
+const MidText = styled.div``;
 
 export default CompletionPage;
