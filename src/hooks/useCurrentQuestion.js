@@ -1,11 +1,20 @@
+import axios from "axios";
+import {useEffect} from "react";
 import { useRecoilValue } from "recoil";
 
-import questionsState from "../store/questions/atom";
-import useStep from "./useStep";
+import surveyState from "../store/survey/atom";
+import useStep from './useStep'
 
 function useCurrentQuestion(){
 	const step = useStep();
-  const questions = useRecoilValue(questionsState);
+  const surveyData = useRecoilValue(surveyState);
+	const questions = surveyData?.questions || []; 
+	
+	useEffect(()=>{
+		axios.get('http://localhost:3001/surveys/1').then((res)=>{
+			console.log(res);
+		});
+	}, []);
 
 	return questions[step];
 }
