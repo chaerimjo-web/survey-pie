@@ -11,10 +11,6 @@ function QuestionBox() {
   const [answer, setAnswer] = useCurrentAnswer(); 
   const question = useCurrentQuestion(); //언디파인
 
-  if(!question){
-    return null;
-  }
-
   return (
     <QuestionBoxWrapper>
       <Title>{question.title}</Title>
