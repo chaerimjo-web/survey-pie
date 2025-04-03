@@ -15,7 +15,7 @@ function ActionButtons() {
   const step = useStep();
   const surveyId = useSurveyId();
   const isRequired = useRequiredOption();
-  const answers = useAnswers();
+  const [answers, setAnswers] = useAnswers();
   const [isPosting, setIsPosting] = useState(false);
   const questionsLength = useRecoilValue(questionsLengthState);
   const isBlockToNext = isRequired ? !answers[step]?.length : false;
@@ -41,6 +41,7 @@ function ActionButtons() {
             setIsPosting(true); 
             postAnswers(surveyId, answers)
               .then(() => {
+                setAnswers([]);
                 navigate(`/done/${surveyId}`);
               })
               .catch((err) => {
