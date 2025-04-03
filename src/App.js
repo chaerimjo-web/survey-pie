@@ -36,6 +36,7 @@ const Box = styled.div`
   box-shadow: 0 2px 10px rgba(0,0,0, 0.07);
   display: flex;
   box-sizing: border-box;
+  position: relative;
 `;
 
 export default App;
