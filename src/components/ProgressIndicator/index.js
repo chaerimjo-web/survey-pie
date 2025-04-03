@@ -20,7 +20,7 @@ function ProgressIndicator() {
     } else if (answers[i]) {
       status = "done";
     }
-		bars.push(<Bar key={i} status={status} />);
+		bars.push(<Bar key={i} $status={status} />);
   }
 
   return (
