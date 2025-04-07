@@ -1,20 +1,39 @@
 import { Layout, Menu } from "antd";
-
+import { Link } from "react-router-dom";
 const { Header, Content, Footer, Sider } = Layout;
 
-function MainLayout({ children }) {
+function MainLayout({ selectedKeys,children }) {
+  const menuItems = [
+    {
+      key: "list",
+      label: <Link to="/list">설문조사 관리</Link>,
+    },
+    // 필요하면 다른 메뉴도 추가 가능
+  ];
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider>
-        <div className="demo-logo-vertical" />
-        <Menu defaultSelectedKeys={["1"]}  mode="inline">
-					<Menu.Item key="1">Files</Menu.Item>
-				</Menu>
+        <div
+          className="logo"
+          style={{
+            height: 32,
+            margin: 16,
+            background: "rgba(255,255,255,0.3)",
+            borderRadius: 8,
+          }}
+        />
+        <Menu
+          theme="dark"
+          selectedKeys={selectedKeys}
+          mode="inline"
+          items={menuItems}
+        />
       </Sider>
       <Layout>
         <Header />
         <Content>{children}</Content>
-        <Footer></Footer>
+        <Footer />
       </Layout>
     </Layout>
   );
