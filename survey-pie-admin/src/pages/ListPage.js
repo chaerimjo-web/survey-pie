@@ -1,6 +1,17 @@
-import MainLayout from "../layouts/MainLayout";
+import useSWR from "swr";
 
-function ListPage(){
-	return <MainLayout selectedKeys={["list"]}>ListPage</MainLayout>
+import MainLayout from "../layouts/MainLayout";
+import fetcher from "../libs/fetcher";
+
+function ListPage() {
+  const { data, error } = useSWR("/surveys", fetcher);
+
+  console.log(data);
+
+  if (error) {
+    return "error";
+  }
+
+  return <MainLayout selectedKeys={["list"]}>ListPage</MainLayout>;
 }
 export default ListPage;
