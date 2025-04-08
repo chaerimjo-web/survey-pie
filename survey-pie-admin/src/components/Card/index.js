@@ -15,6 +15,8 @@ function Card({ title, desc, children }) {
 const CardWrapper = styled.div`
   border: 1px solid #dddddd;
 	background: #ffffff;
+	width: 300px;
+	margin: 30px auto;
 `;
 const Head = styled.div`
   border-bottom: 1px solid #dddddd;
@@ -26,6 +28,7 @@ const Title = styled.div`
 `;
 const Desc = styled.div`
   color: #666666;
+	margin-left: 5px;
 `;
 const Body = styled.div`
   padding: 20px;
