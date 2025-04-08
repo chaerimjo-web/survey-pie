@@ -1,10 +1,13 @@
 import Card from "../Card";
-function PreviewSection() {
+
+function PreviewSection({questions}) {
   return (
     <>
-      <Card title="title" desc="">
-        Body
-      </Card>
+			{questions.map((question)=>(
+				<Card title={question.title} desc={question.desc}>
+					Body
+				</Card>
+			))}
     </>
   );
 }
