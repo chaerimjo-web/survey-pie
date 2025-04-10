@@ -2,7 +2,7 @@ import SelectInput from "../SelectInput";
 import TextAreaInput from "../TextAreaInput";
 import Text from "../TextInput";
 
-function Body({type}){
+function Body({type, options}){
 	let Components;
 	if(type === 'text'){
 		Components = Text;
@@ -11,6 +11,6 @@ function Body({type}){
 	}else if(type === 'select'){
 		Components = SelectInput;
 	}
-	return <Components/>;
+	return <Components options={options}/>;
 }
 export default Body;
