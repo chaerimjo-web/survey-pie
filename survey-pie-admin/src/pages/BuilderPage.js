@@ -1,4 +1,5 @@
 import { Col, Input, Row } from "antd";
+import { produce } from "immer";
 import { useState } from "react";
 
 import OptionSection from "../components/OptionSection";
@@ -51,10 +52,32 @@ function BuilderPage() {
             placeholder="설문 제목을 입력해주세요."
             value={data.title}
             onChange={(e) => {
-              setData((state) => ({ ...state, title: e.target.value }));
+              setData(
+                produce(data, (draft) => {
+                  draft.title = e.target.value;
+                })
+              );
             }}
           />
-          <PreviewSection questions={data.questions} />
+          <PreviewSection
+            questions={data.questions}
+            addQuestion={() => {
+              setData(
+                produce((draft) => {
+                  draft.questions.push({
+                    title: "Untitled",
+                    desc: "",
+                    type: "text",
+                    required: false,
+                    options: {
+                      max: 20,
+                      placeholder: "",
+                    },
+                  });
+                })
+              );
+            }}
+          />
         </Col>
         <Col flex="350px">
           <OptionSection />
