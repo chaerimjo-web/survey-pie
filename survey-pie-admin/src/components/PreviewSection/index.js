@@ -1,14 +1,14 @@
 import Card from "../Card";
 
 function PreviewSection({questions}) {
-  return (
-    <>
-			{questions.map((question)=>(
-				<Card title={question.title} desc={question.desc}>
+  return ( 
+    <div>
+			{questions.map((question, index)=>(
+				<Card key={index} title={question.title} desc={question.desc}>
 					Body
 				</Card>
 			))}
-    </>
+    </div>
   );
 }
 export default PreviewSection;
