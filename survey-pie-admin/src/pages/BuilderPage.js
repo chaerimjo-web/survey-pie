@@ -30,8 +30,8 @@ function BuilderPage() {
           />
           <PreviewSection
             questions={survey.questions}
-            addQuestion={() => {
-              dispatch(addQuestion());
+            addQuestion={(type) => {
+              dispatch(addQuestion(type));
             }}
             moveUpQuestion={(index) => {
               //index값 필요

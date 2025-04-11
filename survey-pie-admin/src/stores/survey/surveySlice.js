@@ -46,16 +46,27 @@ export const surveySlice = createSlice({
     setTitle: (state, action) => {
       state.title = action.payload;
     },
-    addQuestion: (state) => {
+    addQuestion: (state, action) => {
+      const type = action.payload;
+      let options = {};
+      if(type === 'text' || type === 'textarea'){
+        options = {
+          max: 20,
+          placeholder: "",
+        }
+      }else if(type === 'select'){
+        options ={
+          max: 1,
+          items: ["가", "나", "다"]
+        }
+      }
+
       state.questions.push({
         title: "Untitled",
         desc: "",
-        type: "text",
+        type,
         required: false,
-        options: {
-          max: 20,
-          placeholder: "",
-        },
+        options,
       });
     },
     moveUpQuestion: (state, action) => {
