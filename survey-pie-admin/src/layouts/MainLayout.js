@@ -1,11 +1,11 @@
 import { Layout, Menu } from "antd";
-import React, { useMemo } from 'react';
+import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 const { Header, Content, Footer, Sider } = Layout;
 
-function MainLayout({ selectedKeys, children }) {
+function MainLayout({ selectedKeys, children, padding = 45 }) {
   const contentStyle = useMemo(() => {
-    return { padding: 45 };
+    return { padding };
   }, []);
 
   const menuItems = [
