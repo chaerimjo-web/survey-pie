@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import BuilderTitleInput from "../BuilderTitleInput";
+import BuilderTitleInput from "../components/BuilderTitleInput";
 import OptionSection from "../components/OptionSection";
 import PreviewSection from "../components/PreviewSection";
 import MainLayout from "../layouts/MainLayout";

@@ -1,7 +1,7 @@
 import {Input} from "antd";
 import { useDispatch, useSelector } from "react-redux";
 
-import { setTitle } from "../stores/survey/surveySlice";
+import { setTitle } from "../../stores/survey/surveySlice";
 
 function BuilderTitleInput() {
 	const dispatch = useDispatch();
