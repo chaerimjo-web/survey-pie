@@ -10,7 +10,7 @@ export const selectedQuestionIdSlice = createSlice({
   reducers: {
     //state함수를 직접적으로 조작하는 함수
     setSelectedQuestionId: (state, action) => {
-      state.data.title = action.payload;
+      state.data = action.payload;
     },
   },
 });
