@@ -50,7 +50,7 @@ function PreviewSection() {
           onUpButtonClick={() => handleMoveUpQuestion(index)}
           onDownButtonClick={() => handleMoveDownQuestion(index)}
           deleteButtonClick={() => handleDeleteQuestion(index)}
-          onClick={handleCardClick}
+          onClick={()=>handleCardClick(index)}
           isSelected={selectedQuestionId === index}
         >
           <Body type={question.type} options={question.options} />
