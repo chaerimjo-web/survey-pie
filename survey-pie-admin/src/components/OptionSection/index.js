@@ -1,4 +1,4 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Switch } from "antd";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { styled } from "styled-components";
@@ -6,6 +6,32 @@ import { styled } from "styled-components";
 import { setQuestion } from "../../stores/survey/surveySlice";
 
 const { Item } = Form;
+
+const groups = [
+  {
+    title: "공통 옵션",
+    fields: [
+      {
+        label: "질문",
+        name: "title",
+        rules: [{ required: true }],
+        type: "text",
+      },
+      {
+        label: "설명",
+        name: "desc",
+        rules: [{ required: true }],
+        type: "text",
+      },
+      {
+        label: "필수 여부",
+        name: "required",
+        rules: [],
+        type: "switch",
+      },
+    ],
+  },
+];
 
 function OptionSection() {
   const [form] = Form.useForm();
@@ -26,7 +52,16 @@ function OptionSection() {
     });
   }, [form, form.question, question]);
 
-  const selectedQuestionId = useSelector((state) => state.selectedQuestionId.data);
+  const selectedQuestionId = useSelector(
+    (state) => state.selectedQuestionId.data
+  );
+
+  const getFieldInput = (type) => {
+    if (type === "text") return <Input />;
+    else if (type === "switch") return <Switch />;
+
+    return null;
+  };
 
   return (
     <OptionSectionWrapper>
@@ -35,14 +70,14 @@ function OptionSection() {
       <FormWrapper>
         {question ? (
           <Form layout="vertical" form={form} name="option-form">
-            <SubTitle>공통 옵션</SubTitle>
-            <Item label="질문 :" name="title" rules={[{ required: true }]}>
-              <Input />
-            </Item>
-            <Item label="설명 :" name="desc" rules={[{ required: true }]}>
-              <Input />
-            </Item>
-
+            {groups.map((group) => (
+              <>
+                <SubTitle>{group.title}</SubTitle>
+                {group.fields.map((field) => (
+                  <Item {...field}>{getFieldInput(field.type)}</Item>
+                ))}
+              </>
+            ))}
             <Item>
               <Button
                 htmlType="submit"
@@ -52,7 +87,9 @@ function OptionSection() {
                   const values = form.getFieldsValue();
                   console.log(values);
 
-                  dispatch(setQuestion({index: selectedQuestionId, data: values}));
+                  dispatch(
+                    setQuestion({ index: selectedQuestionId, data: values })
+                  );
                 }}
               >
                 적용
