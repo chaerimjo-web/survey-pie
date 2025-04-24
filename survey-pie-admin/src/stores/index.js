@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import thunk from "./middleware/thunk";
-import surveySlice from "./survey/surveySlice";
+import selectedQuestionReducer from "./selectedQuestionId/selectedQuestionIdSlice";
+import surveyReducer from "./survey/surveySlice";
 
 export default configureStore({
   reducer: {
-    survey: surveySlice,
+    survey: surveyReducer,
+    selectedQuestionId: selectedQuestionReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunk),
 });
