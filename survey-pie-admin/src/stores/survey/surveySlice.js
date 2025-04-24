@@ -63,7 +63,7 @@ export const surveySlice = createSlice({
     },
     setQuestion: (state, action) => {
       const index = action.payload.index;
-      state.questions[index] = action.payload;
+      state.data.questions[index] = action.payload.data;
     },
   },
 });
