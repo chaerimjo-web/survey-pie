@@ -1,5 +1,5 @@
 import { Button, Form, Input, Switch } from "antd";
-import { useEffect } from "react";
+import {useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { styled } from "styled-components";
 
@@ -28,10 +28,18 @@ const groups = [
         name: "required",
         rules: [],
         type: "switch",
+        valuePropName: "checked",
       },
     ],
   },
 ];
+
+const getFieldInput = (type) => {
+  if (type === "text") return <Input />;
+  else if (type === "switch") return <Switch />;
+
+  return null;
+};
 
 function OptionSection() {
   const [form] = Form.useForm();
@@ -56,13 +64,6 @@ function OptionSection() {
     (state) => state.selectedQuestionId.data
   );
 
-  const getFieldInput = (type) => {
-    if (type === "text") return <Input />;
-    else if (type === "switch") return <Switch />;
-
-    return null;
-  };
-
   return (
     <OptionSectionWrapper>
       <Title>문항 옵션</Title>
@@ -70,13 +71,13 @@ function OptionSection() {
       <FormWrapper>
         {question ? (
           <Form layout="vertical" form={form} name="option-form">
-            {groups.map((group) => (
-              <>
+            {groups.map((group, index) => (
+              <Fragment key={index}>
                 <SubTitle>{group.title}</SubTitle>
-                {group.fields.map((field) => (
-                  <Item {...field}>{getFieldInput(field.type)}</Item>
+                {group.fields.map((field, index) => (
+                  <Item key={index} {...field}>{getFieldInput(field.type)}</Item>
                 ))}
-              </>
+              </Fragment>
             ))}
             <Item>
               <Button
@@ -119,6 +120,8 @@ const Title = styled.div`
 
 const FormWrapper = styled.div`
   padding: 20px;
+`;
+const Fragment = styled.div`
 `;
 const SubTitle = styled.div`
   margin: 10px 0px;
