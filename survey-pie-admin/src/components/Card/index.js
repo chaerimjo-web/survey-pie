@@ -2,14 +2,23 @@ import { DeleteOutlined, DownOutlined, UpOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { styled } from "styled-components";
 
-function Card({ title, desc, children, onUpButtonClick, onDownButtonClick, deleteButtonClick }) {
+function Card({
+  title,
+  desc,
+  children,
+  onUpButtonClick,
+  onDownButtonClick,
+  deleteButtonClick,
+  isSelected,
+}) {
   return (
-    <CardWrapper>
-      <Head>
+    <CardWrapper isSelected={isSelected}>
+      <Head onClick={onclick}>
         <Title>{title}</Title>
         <Desc>{desc}</Desc>
       </Head>
-      <Body>{children}</Body>
+      <Body onClick={onclick}>{children}</Body>
+
       <ButtonGroupWrapper>
         <ButtonGroup>
           <Button onClick={onUpButtonClick} type="text" icon={<UpOutlined />} />
@@ -42,7 +51,7 @@ const ButtonGroup = styled.div`
 `;
 
 const CardWrapper = styled.div`
-  border: 1px solid #dddddd;
+  border: ${({ isSelected }) => (isSelected ? "3px solid blue" : "1px solid #dddddd")};
   background: #ffffff;
   width: 500px;
   margin: 30px auto;
