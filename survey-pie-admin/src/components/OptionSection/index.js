@@ -1,5 +1,5 @@
 import { Button, Form, Input, Switch } from "antd";
-import {useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { styled } from "styled-components";
 
@@ -34,6 +34,51 @@ const groups = [
   },
 ];
 
+const detailFieldsMap = {
+  text: [
+    {
+      label: "placeholder",
+      name: "placeholder",
+      rules: [{ required: false }],
+      type: "text",
+    },
+    {
+      label: "최대 입력 길이",
+      name: "max",
+      rules: [{ required: false }],
+      type: "text",
+    },
+  ],
+  textArea: [
+    {
+      label: "placeholder",
+      name: "placeholder",
+      rules: [{ required: false }],
+      type: "text",
+    },
+    {
+      label: "최대 입력 길이",
+      name: "max",
+      rules: [{ required: false }],
+      type: "text",
+    },
+  ],
+  select: [
+    {
+      label: "답변",
+      name: "items",
+      rules: [{ required: true }],
+      type: "select",
+    },
+    {
+      label: "최대 입력 길이",
+      name: "max",
+      rules: [{ required: false }],
+      type: "text",
+    },
+  ],
+};
+
 const getFieldInput = (type) => {
   if (type === "text") return <Input />;
   else if (type === "switch") return <Switch />;
@@ -57,8 +102,19 @@ function OptionSection() {
     form.setFieldsValue({
       title: question.title,
       desc: question.desc,
+      required: question.required,
     });
   }, [form, form.question, question]);
+
+  const mergedGroups = question
+    ? [
+        ...groups,
+        {
+          title: "세부 옵션",
+          fields: detailFieldsMap[question.type],
+        },
+      ]
+    : [];
 
   const selectedQuestionId = useSelector(
     (state) => state.selectedQuestionId.data
@@ -71,11 +127,13 @@ function OptionSection() {
       <FormWrapper>
         {question ? (
           <Form layout="vertical" form={form} name="option-form">
-            {groups.map((group, index) => (
+            {mergedGroups.map((group, index) => (
               <Fragment key={index}>
                 <SubTitle>{group.title}</SubTitle>
                 {group.fields.map((field, index) => (
-                  <Item key={index} {...field}>{getFieldInput(field.type)}</Item>
+                  <Item key={index} {...field}>
+                    {getFieldInput(field.type)}
+                  </Item>
                 ))}
               </Fragment>
             ))}
@@ -121,8 +179,7 @@ const Title = styled.div`
 const FormWrapper = styled.div`
   padding: 20px;
 `;
-const Fragment = styled.div`
-`;
+const Fragment = styled.div``;
 const SubTitle = styled.div`
   margin: 10px 0px;
   font-size: 1.03rem;
