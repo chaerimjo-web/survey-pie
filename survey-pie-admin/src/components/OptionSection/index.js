@@ -1,6 +1,6 @@
-import { Button, Form, Input, Switch } from "antd";
+import { Button, Form, Input, InputNumber,Switch } from "antd";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { styled } from "styled-components";
 
 import { setQuestion } from "../../stores/survey/surveySlice";
@@ -46,12 +46,12 @@ const detailFieldsMap = {
       label: "최대 입력 길이",
       name: "max",
       rules: [{ required: false }],
-      type: "text",
+      type: "number",
     },
   ],
-  textArea: [
+  textarea: [
     {
-      label: "placeholder",
+      label: "Placeholder",
       name: "placeholder",
       rules: [{ required: false }],
       type: "text",
@@ -60,7 +60,7 @@ const detailFieldsMap = {
       label: "최대 입력 길이",
       name: "max",
       rules: [{ required: false }],
-      type: "text",
+      type: "number",
     },
   ],
   select: [
@@ -74,13 +74,14 @@ const detailFieldsMap = {
       label: "최대 선택 개수",
       name: "max",
       rules: [{ required: false }],
-      type: "text",
+      type: "number",
     },
   ],
 };
 
 const getFieldInput = (type) => {
   if (type === "text") return <Input />;
+  if (type === "number") return <InputNumber />;
   else if (type === "switch") return <Switch />;
 
   return null;
@@ -89,10 +90,12 @@ const getFieldInput = (type) => {
 function OptionSection() {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-  const question = useSelector((state) =>
-    state.selectedQuestionId.data === null
-      ? null
-      : state.survey.data.questions[state.selectedQuestionId.data]
+  const question = useSelector(
+    (state) =>
+      state.selectedQuestionId.data === null
+        ? null
+        : state.survey.data.questions[state.selectedQuestionId.data],
+    shallowEqual
   );
   //퀘스천 null-> 선택된 것이 없는 것
 
@@ -103,10 +106,24 @@ function OptionSection() {
   useEffect(() => {
     if (!question) return;
 
+    const type = question.type;
+    const detailFieldValue = {};
+    if (type === "text" || type === "textarea") {
+      detailFieldValue.max = question.options.max;
+      detailFieldValue.placeholder = question.options.placeholder;
+    } else if (type === "select") {
+      detailFieldValue.max = question.options.max;
+      detailFieldValue.items = question.options.items.join(";");
+      // detailFieldValue.items = question.options.items;
+      //items -> 배열이라 문제가생김 -> join
+      //join(';') 배열이 각각 세미콜론을 갖게되어 문자열로 결합이 된다. .
+    }
+
     form.setFieldsValue({
       title: question.title,
       desc: question.desc,
       required: question.required,
+      ...detailFieldValue,
     });
   }, [form, form.question, question]);
 
@@ -115,7 +132,7 @@ function OptionSection() {
         ...groups,
         {
           title: "세부 옵션",
-          fields: detailFieldsMap[question.type],
+          fields: detailFieldsMap[question.type], //question이 없는 경우 type도 가져올 수 없다.
         },
       ]
     : [];
@@ -149,8 +166,15 @@ function OptionSection() {
                 type="primary"
                 onClick={() => {
                   // 밸류 추출하기
-                  const values = form.getFieldsValue();
-                  console.log(values);
+                  const { title, desc, required, ...options } =
+                    form.getFieldsValue();
+                  const values = {
+                    title,
+                    desc,
+                    required,
+                    options,
+                    type: question.type
+                  };
 
                   dispatch(
                     setQuestion({ index: selectedQuestionId, data: values })
