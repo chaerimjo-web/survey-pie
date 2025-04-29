@@ -71,7 +71,7 @@ const detailFieldsMap = {
       type: "select",
     },
     {
-      label: "최대 입력 길이",
+      label: "최대 선택 개수",
       name: "max",
       rules: [{ required: false }],
       type: "text",
@@ -96,6 +96,10 @@ function OptionSection() {
   );
   //퀘스천 null-> 선택된 것이 없는 것
 
+  const selectedQuestionId = useSelector(
+    (state) => state.selectedQuestionId.data
+  );
+
   useEffect(() => {
     if (!question) return;
 
@@ -116,9 +120,6 @@ function OptionSection() {
       ]
     : [];
 
-  const selectedQuestionId = useSelector(
-    (state) => state.selectedQuestionId.data
-  );
 
   return (
     <OptionSectionWrapper>
@@ -130,7 +131,7 @@ function OptionSection() {
             {mergedGroups.map((group, index) => (
               <Fragment key={index}>
                 <SubTitle>{group.title}</SubTitle>
-                {group.fields.map((field, index) => (
+                {group.fields?.map((field, index) => (
                   <Item key={index} {...field}>
                     {getFieldInput(field.type)}
                   </Item>
