@@ -28,7 +28,7 @@ const groups = [
         name: "required",
         rules: [],
         type: "switch",
-        valuePropName: "checked",
+        valuepropname: "checked",
       },
     ],
   },
@@ -127,12 +127,12 @@ function OptionSection() {
       {/* 선택이 되지 않으면 ,  */}
       <FormWrapper>
         {question ? (
-          <Form layout="vertical" form={form} name="option-form">
+          <Form layout="vertical" form={form} name='option-form'>
             {mergedGroups.map((group, index) => (
               <Fragment key={index}>
                 <SubTitle>{group.title}</SubTitle>
                 {group.fields?.map((field, index) => (
-                  <Item key={index} {...field}>
+                  <Item key={index} {...field} >
                     {getFieldInput(field.type)}
                   </Item>
                 ))}
