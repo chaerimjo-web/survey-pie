@@ -120,22 +120,27 @@ function OptionSection() {
       ]
     : [];
 
-
   return (
     <OptionSectionWrapper>
       <Title>문항 옵션</Title>
       {/* 선택이 되지 않으면 ,  */}
       <FormWrapper>
         {question ? (
-          <Form layout="vertical" form={form} name='option-form'>
+          <Form layout="vertical" form={form} name="option-form">
             {mergedGroups.map((group, index) => (
               <Fragment key={index}>
                 <SubTitle>{group.title}</SubTitle>
-                {group.fields?.map((field, index) => (
-                  <Item key={index} {...field} >
-                    {getFieldInput(field.type)}
-                  </Item>
-                ))}
+                {group.fields?.map((field, index) => {
+                  const input = getFieldInput(field.type);
+                  if (!input) return null; // 입력 요소 없으면 skip
+
+                  const { type, ...itemProps } = field; // type은 Form.Item에 넘기지 않는다.
+                  return (
+                    <Item key={index} {...itemProps}>
+                      {input}
+                    </Item>
+                  );
+                })}
               </Fragment>
             ))}
             <Item>
