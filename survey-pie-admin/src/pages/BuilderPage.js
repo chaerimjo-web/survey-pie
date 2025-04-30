@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import BuilderTitleInput from "../components/BuilderTitleInput";
 import OptionSection from "../components/OptionSection";
 import PreviewSection from "../components/PreviewSection";
+import FloatingButton from "../components/PuttingButton";
 import MainLayout from "../layouts/MainLayout";
 import fetchSurvey from "../services/fetchSurvey";
 
@@ -28,8 +29,8 @@ function BuilderPage() {
 
   return (
     <MainLayout selectedKeys={["builder"]} padding={0}>
-      <Row style={{height: '100%'}}>
-        <Col flex="auto" style={{padding: 30 }}>
+      <Row style={{ height: "100%" }}>
+        <Col flex="auto" style={{ padding: 30 }}>
           <BuilderTitleInput />
           <PreviewSection />
         </Col>
@@ -37,6 +38,7 @@ function BuilderPage() {
           <OptionSection />
         </Col>
       </Row>
+      <FloatingButton />
     </MainLayout>
   );
 }
