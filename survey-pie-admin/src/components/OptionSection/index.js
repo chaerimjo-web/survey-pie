@@ -1,4 +1,4 @@
-import { Button, Form, Input, InputNumber,Switch } from "antd";
+import { Button, Form, Input, InputNumber, Switch } from "antd";
 import { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { styled } from "styled-components";
@@ -68,7 +68,7 @@ const detailFieldsMap = {
       label: "답변",
       name: "items",
       rules: [{ required: true }],
-      type: "select",
+      type: "text",
     },
     {
       label: "최대 선택 개수",
@@ -113,7 +113,7 @@ function OptionSection() {
       detailFieldValue.placeholder = question.options.placeholder;
     } else if (type === "select") {
       detailFieldValue.max = question.options.max;
-      detailFieldValue.items = question.options.items.join(";");
+      detailFieldValue.items = question.options.items && question.options.items.join(";");
       // detailFieldValue.items = question.options.items;
       //items -> 배열이라 문제가생김 -> join
       //join(';') 배열이 각각 세미콜론을 갖게되어 문자열로 결합이 된다. .
@@ -173,8 +173,15 @@ function OptionSection() {
                     desc,
                     required,
                     options,
-                    type: question.type
+                    type: question.type,
                   };
+
+                  if (
+                    values.type === "select" &&
+                    typeof values.options.items === "string"
+                  ) {
+                    values.options.items = values.options.items.split(";");
+                  }
 
                   dispatch(
                     setQuestion({ index: selectedQuestionId, data: values })
