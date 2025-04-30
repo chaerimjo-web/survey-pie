@@ -17,7 +17,9 @@ function BuilderPage() {
   const params = useParams();
 
   useEffect(() => {
-    dispatch(fetchSurvey(params.surveyId));
+    if(params.surveyId){
+      dispatch(fetchSurvey(params.surveyId));
+    }
   }, [dispatch, params.surveyId]);
 
   if (error) {
