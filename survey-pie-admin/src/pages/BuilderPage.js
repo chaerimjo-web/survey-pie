@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import BuilderTitleInput from "../components/BuilderTitleInput";
+import FloatingButton from "../components/FloatingButton";
 import OptionSection from "../components/OptionSection";
 import PreviewSection from "../components/PreviewSection";
-import FloatingButton from "../components/PuttingButton";
 import MainLayout from "../layouts/MainLayout";
 import fetchSurvey from "../services/fetchSurvey";
 
