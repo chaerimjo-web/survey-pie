@@ -6,7 +6,7 @@ const { Header, Content, Footer, Sider } = Layout;
 function MainLayout({ selectedKeys, children, padding = 45 }) {
   const contentStyle = useMemo(() => {
     return { padding };
-  }, []);
+  }, [padding]);
 
   const menuItems = [
     {
