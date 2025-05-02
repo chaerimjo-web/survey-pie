@@ -8,7 +8,7 @@ import useSWR from "swr";
 import MainLayout from "../layouts/MainLayout";
 import fetcher from "../libs/fetcher";
 
-const PAGE_SIZE = 2;
+const PAGE_SIZE = 5;
 
 const columns = [
   {
