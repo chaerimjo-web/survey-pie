@@ -1,10 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  data: {
-    title: '',
-    questions: []
-  },
+  data: null,
   setError: null,
   setLoading: false,
 };
@@ -20,16 +17,16 @@ export const surveySlice = createSlice({
     addQuestion: (state, action) => {
       const type = action.payload;
       let options = {};
-      if(type === 'text' || type === 'textarea'){
+      if (type === "text" || type === "textarea") {
         options = {
           max: 20,
           placeholder: "",
-        }
-      }else if(type === 'select'){
-        options ={
+        };
+      } else if (type === "select") {
+        options = {
           max: 1,
-          items: ["가", "나", "다"]
-        }
+          items: ["가", "나", "다"],
+        };
       }
 
       state.data.questions.push({
@@ -67,6 +64,7 @@ export const surveySlice = createSlice({
     setQuestion: (state, action) => {
       const index = action.payload.index;
       state.data.questions[index] = action.payload.data;
+      console.log(action.payload);
     },
   },
 });
@@ -81,7 +79,7 @@ export const {
   setSurvey,
   setLoading,
   setError,
-  setQuestion
+  setQuestion,
 } = surveySlice.actions;
 
 export default surveySlice.reducer;
