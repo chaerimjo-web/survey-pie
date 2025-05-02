@@ -9,6 +9,10 @@ import putSurvey from "../../stores/survey/putSurvey";
 function FloatingButton() {
   const survey = useSelector((state) => state.survey.data);
   const navigate = useNavigate();
+
+  if (!survey) {
+    return null;
+  }
   const isEditPage = !!survey.id;
 
   return (
@@ -17,7 +21,9 @@ function FloatingButton() {
         onClick={() =>
           isEditPage
             ? putSurvey(survey)
-            : postSurvey(survey).then((data) => navigate(`/builder/${data.id}`))
+            : postSurvey(survey).then((data) => {
+                navigate(`/builder/${data.id}`);
+              })
         }
       >
         저장
