@@ -1,5 +1,6 @@
 import { Table } from "antd";
 import { Button } from "antd";
+import React, { useMemo } from "react";
 // import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
@@ -7,51 +8,64 @@ import useSWR from "swr";
 
 import MainLayout from "../layouts/MainLayout";
 import fetcher from "../libs/fetcher";
+import deleteSurvey from "./deleteSurvey";
 
 const PAGE_SIZE = 5;
 
-const columns = [
-  {
-    title: "번호",
-    dataIndex: "id",
-    key: "id",
-  },
-  {
-    title: "제목",
-    dataIndex: "title",
-    key: "title",
-  },
-  {
-    title: "생성일",
-    dataIndex: "createdAt",
-    key: "createdAt",
-    render: (createdAt) => {
-      const time = new Date(createdAt);
-      return `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()}`;
-    },
-  },
-  {
-    title: "액션",
-    dataIndex: "id",
-    key: "action",
-    render: (id) => {
-      return (
-        <button
-          onClick={() => {
-            console.log(id, "삭제");
-          }}
-        >
-          삭제
-        </button>
-      );
-    },
-  },
-];
-
 function ListPage() {
-  const { data, error } = useSWR("/surveys?_sort=id&_order=desc", fetcher);
+  const { data, error, mutate } = useSWR(
+    "/surveys?_sort=id&_order=desc",
+    fetcher
+  ); //최신 상태를 유지
   const navigate = useNavigate();
   // const [page, setPage] = useState();
+  const columns = useMemo(
+    () => [
+      {
+        title: "번호",
+        dataIndex: "id",
+        key: "id",
+      },
+      {
+        title: "제목",
+        dataIndex: "title",
+        key: "title",
+      },
+      {
+        title: "생성일",
+        dataIndex: "createdAt",
+        key: "createdAt",
+        render: (createdAt) => {
+          const time = new Date(createdAt);
+          return `${time.getFullYear()}-${
+            time.getMonth() + 1
+          }-${time.getDate()}`;
+        },
+      },
+      {
+        title: "액션",
+        dataIndex: "id",
+        key: "action",
+        render: (id) => {
+          return (
+            <Button
+              danger
+              onClick={(e) => {
+                // console.log(id, "삭제");
+                deleteSurvey(id).then(() => mutate());
+
+                e.stopPropagation();
+                e.preventDefault();
+              }}
+            >
+              삭제
+            </Button>
+          );
+        },
+      },
+    ],
+    [mutate]
+  );
 
   console.log(data);
 
