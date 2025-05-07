@@ -49,7 +49,7 @@ const columns = [
 ];
 
 function ListPage() {
-  const { data, error } = useSWR("/surveys", fetcher);
+  const { data, error } = useSWR("/surveys?_sort=id&_order=desc", fetcher);
   const navigate = useNavigate();
   // const [page, setPage] = useState();
 
